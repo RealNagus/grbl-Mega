@@ -344,7 +344,7 @@ void limits_go_home(uint8_t cycle_mask)
                 #endif
               }
             }
-            sys.homing_axis_lock[idx] = axislock[idx];
+            sys.homing_axis_lock[idx] = 65; //axislock[idx];
           }
         }
 

@@ -220,17 +220,25 @@
   #define DISABLE_HW_LIMITS
 
   // Define spindle enable and spindle direction output pins.
-  #define SPINDLE_ENABLE_DDR      DDRG
-  #define SPINDLE_ENABLE_PORT     PORTG
-  #define SPINDLE_ENABLE_BIT      5 // MEGA2560 Digital Pin 4 - Ramps 1.4 Servo 4 Signal pin
+  //#define SPINDLE_ENABLE_DDR      DDRG
+  //#define SPINDLE_ENABLE_PORT     PORTG
+  //#define SPINDLE_ENABLE_BIT      5 // MEGA2560 Digital Pin 4 - Ramps 1.4 Servo 4 Signal pin
+  // switched Coolant with spindle enable to have 12V laser enable output
+  #define SPINDLE_ENABLE_DDR      DDRB
+  #define SPINDLE_ENABLE_PORT     PORTB
+  #define SPINDLE_ENABLE_BIT      4 // MEGA2560 Digital Pin 10 - Ramps 1.4 12v output
   #define SPINDLE_DIRECTION_DDR   DDRE
   #define SPINDLE_DIRECTION_PORT  PORTE
   #define SPINDLE_DIRECTION_BIT   3 // MEGA2560 Digital Pin 5 - Ramps 1.4 Servo 3 Signal pin
 
   // Define flood and mist coolant enable output pins.
-  #define COOLANT_FLOOD_DDR   DDRB
-  #define COOLANT_FLOOD_PORT  PORTB
-  #define COOLANT_FLOOD_BIT   4 // MEGA2560 Digital Pin 10 - Ramps 1.4 12v output
+  //#define COOLANT_FLOOD_DDR   DDRB
+  //#define COOLANT_FLOOD_PORT  PORTB
+  //#define COOLANT_FLOOD_BIT   4 // MEGA2560 Digital Pin 10 - Ramps 1.4 12v output
+  // switched Coolant with spindle enable to have 12V laser enable output
+  #define COOLANT_FLOOD_DDR   DDRG
+  #define COOLANT_FLOOD_PORT  PORTG
+  #define COOLANT_FLOOD_BIT   5 // MEGA2560 Digital Pin 4 - Ramps 1.4 Servo 4 Signal pin
   #define COOLANT_MIST_DDR    DDRH
   #define COOLANT_MIST_PORT   PORTH
   #define COOLANT_MIST_BIT    6 // MEGA2560 Digital Pin 9 - Ramps 1.4 12v output
@@ -265,21 +273,26 @@
   #define SPINDLE_PWM_OFF_VALUE     0
   #define SPINDLE_PWM_RANGE         (SPINDLE_PWM_MAX_VALUE-SPINDLE_PWM_MIN_VALUE)
 
+
+
+// modified the SPINDLE PWM to output the PWM signal on PL5/D44 @ AUX-2
+// this enables easy access to 5V TTL PWM signal for driving a laser
+
   //Control Digital Pin 6 which is Servo 2 signal pin on Ramps 1.4 board
-  #define SPINDLE_TCCRA_REGISTER    TCCR4A
-  #define SPINDLE_TCCRB_REGISTER    TCCR4B
-  #define SPINDLE_OCR_REGISTER      OCR4C
-  #define SPINDLE_COMB_BIT          COM4C1
+  #define SPINDLE_TCCRA_REGISTER    TCCR5A
+  #define SPINDLE_TCCRB_REGISTER    TCCR5B
+  #define SPINDLE_OCR_REGISTER      OCR5C
+  #define SPINDLE_COMB_BIT          COM5C1
 
   // 1/8 Prescaler, 16-bit Fast PWM mode
-  #define SPINDLE_TCCRA_INIT_MASK ((1<<WGM40) | (1<<WGM41))
-  #define SPINDLE_TCCRB_INIT_MASK ((1<<WGM42) | (1<<WGM43) | (1<<CS41)) 
-  #define SPINDLE_OCRA_REGISTER   OCR4A // 16-bit Fast PWM mode requires top reset value stored here.
+  #define SPINDLE_TCCRA_INIT_MASK ((1<<WGM50) | (1<<WGM51))
+  #define SPINDLE_TCCRB_INIT_MASK ((1<<WGM52) | (1<<WGM53) | (1<<CS51)) 
+  #define SPINDLE_OCRA_REGISTER   OCR5A // 16-bit Fast PWM mode requires top reset value stored here.
   #define SPINDLE_OCRA_TOP_VALUE  0x0400 // PWM counter reset value. Should be the same as PWM_MAX_VALUE in hex.
 
   // Define spindle output pins.
-  #define SPINDLE_PWM_DDR   DDRH
-  #define SPINDLE_PWM_PORT  PORTH
+  #define SPINDLE_PWM_DDR   DDRL
+  #define SPINDLE_PWM_PORT  PORTL
   #define SPINDLE_PWM_BIT   5 // MEGA2560 Digital Pin 8 
 
 #endif
