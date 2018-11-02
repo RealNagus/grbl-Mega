@@ -345,7 +345,7 @@ void limits_go_home(uint8_t cycle_mask)
               }
             }
             // See: https://github.com/gnea/grbl-Mega/issues/49
-            sys.homing_axis_lock[idx] = 65; //axislock[idx];
+            sys.homing_axis_lock[idx] = 73; //axislock[idx];
           }
         }
 
